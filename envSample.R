@@ -41,7 +41,7 @@ envSample<- function (coord, filters, res, do.plot=TRUE){
   pot_points<- list ()
   for (i in 1:n){
   ext1<- range (filters[i])
-  ext1 [1]<- ext1[1]- unlist (res[i])
+  ext1 [1]<- ext1[1]- 1
   x<- seq(ext1[1],ext1[2], by=unlist (res[i]))
   pot_points[[i]]<- x
   }
