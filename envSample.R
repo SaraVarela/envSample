@@ -2,6 +2,7 @@ library (raster)
 library (rgdal)
 library (sqldf)
 library (maps)
+library (testthat)
 
 #' resample the raw data to eliminate the biases in the environmental space. 
 #' 
