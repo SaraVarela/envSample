@@ -29,9 +29,11 @@ library (testthat)
 #' file <- paste(system.file(package="dismo"), "/ex/bradypus.csv", sep="")
 #' bradypus <- read.table(file, header=TRUE, sep=',')
 #' coord<- bradypus [,2:3]
-#' var<- list.files ("yourdirectory/worldclim", pattern=".bil")
+#' setwd ("yourdirectory/worldclim)
+#' var<- list.files (pattern=".bil")
 #' wc<- stack (var)
 #' data<- extract (wc, coord)
+#' data<- as.data.frame (data)
 #' envSample (coord, filters=list (data$bio1, data$bio12), res=list (20, 200), do.plot=TRUE)
 #' }
 #' 
@@ -41,16 +43,17 @@ envSample<- function (coord, filters, res, do.plot=TRUE){
   n<- length (filters)
   pot_points<- list ()
   for (i in 1:n){
-  ext1<- range (filters[i])
-  ext1 [1]<- ext1[1]- 1
-  x<- seq(ext1[1],ext1[2], by=unlist (res[i]))
-  pot_points[[i]]<- x
+    k<- filters [[i]] [!is.na(filters[[i]])]
+    ext1<- range (k)
+    ext1 [1]<- ext1[1]- 1
+    x<- seq(ext1[1],ext1[2], by=res[[i]])
+    pot_points[[i]]<- x
   }
   pot_p<- expand.grid(pot_points)
   
   ends<- NULL
   for (i in 1:n){
-    fin<- pot_p [,i] + unlist (res[i])
+    fin<- pot_p [,i] + res[[i]]
     ends<- cbind (ends, fin)
   }
   
